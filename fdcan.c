@@ -1,4 +1,6 @@
 #include "stdlib.h"
+#include "stm32n6xx_hal.h"
+#include "stm32n6xx_hal_fdcan.h"
 
 FDCAN_HandleTypeDef hfdcan1;
 FDCAN_HandleTypeDef hfdcan3;
