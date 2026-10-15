@@ -9,10 +9,10 @@ static void MX_FDCAN3_Init(void);
 static void FDCAN1_Filter_Config(void);
 static void FDCAN3_Filter_Config(void);
 
-static void FDCAN1_TXF(void);
+static void FDCAN1_TXF(uint8_t TxData1[8]);
 static void FDCAN1_RXF(void);
 
-static void FDCAN3_TXF(void);
+static void FDCAN3_TXF(uint8_t TxData3[8]);
 static void FDCAN3_RXF(void);
 
 static void FDCAN1_SI(void);
@@ -40,7 +40,7 @@ void FDCAN3_SI(void){
     //if (HAL_FDCAN_Stop(&hfdcan3) != HAL_OK){ Error_Handler(); }
 }
 
-static void FDCAN1_TXF(uint8_t TxData1[8]){   
+void FDCAN1_TXF(uint8_t TxData1[8]){   
     
     TxHeader1.Identifier = 0x124;
     TxHeader1.IdType = FDCAN_STANDARD_ID;
@@ -61,7 +61,7 @@ static void FDCAN1_TXF(uint8_t TxData1[8]){
     }
 }
 
-static void FDCAN3_TXF(uint8_t TxData3[8]){	
+void FDCAN3_TXF(uint8_t TxData3[8]){	
 
     TxHeader3.Identifier = 0x123;
     TxHeader3.IdType = FDCAN_STANDARD_ID;
@@ -82,7 +82,7 @@ static void FDCAN3_TXF(uint8_t TxData3[8]){
     }
 }
 
-static void FDCAN1_RXF(void){
+void FDCAN1_RXF(void){
 
 	uint8_t RxData1[8];
     if (HAL_FDCAN_GetRxFifoFillLevel(&hfdcan1, FDCAN_RX_FIFO0) > 0) {
@@ -100,8 +100,8 @@ static void FDCAN1_RXF(void){
     }
 }
 
-static void FDCAN3_RXF(void)
-{
+void FDCAN3_RXF(void){
+
 	uint8_t RxData3[8];
     if (HAL_FDCAN_GetRxFifoFillLevel(&hfdcan3, FDCAN_RX_FIFO1) > 0) {
         if (HAL_FDCAN_GetRxMessage(&hfdcan3, FDCAN_RX_FIFO1, &RxHeader3, RxData3) == HAL_OK)  {
